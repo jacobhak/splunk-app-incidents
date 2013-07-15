@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<view onunloadCancelJobs="False" autoCancelInterval="100">
+	<module name="GoogleMaps" group="Map" layoutPanel="resultsAreaLeft">
+		<param name="height">400px</param>
+		<param name="scrollwheel">off</param>
+		<param name="mapStyles">splunk,roadmap,terrain,satellite</param>
+		<param name="mapType">roadmap</param>
+		<param name="drilldown">true</param>
+
+
+		<module name="SimpleResultsHeader" layoutPanel="resultsHeaderPanel">
+			<param name="entityName">results</param>
+			<param name="headerFormat">$gmapTotalCount$ results with location information ( $gmapLocationCount$ distinct locations ) $time$</param>
+		</module>
+
+		<module name="GeoDrilldown" layoutPanel="resultsHeaderPanel">
+			<module name="ViewRedirector">
+				<param name="viewTarget">flashtimeline</param>
+				<param name="popup">true</param>
+			</module>
+		</module>
+
+	</module>
+
+</view>

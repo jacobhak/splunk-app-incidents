@@ -1,0 +1,163 @@
+<view autoCancelInterval="90" isVisible="true" onunloadCancelJobs="true" template="dashboard.html">
+	<label>The Main View</label>
+	<module name="AccountBar" layoutPanel="appHeader"/>
+	<module name="AppBar" layoutPanel="navigationHeader"/>
+	<module name="Message" layoutPanel="messaging">
+		<param name="filter">*</param>
+		<param name="clearOnJobDispatch">False</param>
+		<param name="maxSize">1</param>
+	</module>
+	<module name="Message" layoutPanel="messaging">
+		<param name="filter">splunk.search.job</param>
+		<param name="clearOnJobDispatch">True</param>
+		<param name="maxSize">1</param>
+	</module>
+
+	<module name="StaticContentSample" layoutPanel="panel_row1_col1">
+		<param name="text">This panel shows natural disasters and other dangerous situations</param>
+	</module>
+
+    <module name="TimeRangePicker" layoutPanel="panel_row1_col1">
+        <param name="default">Last 24 hours</param>
+        <param name="searchWhenChanged">true</param>
+        <module name="HiddenSearch" layoutPanel="panel_row1_col1" autoRun="true" group="Natural disasters">
+            <param name="search">index=twitter coordinates.type=Point | rename coordinates.coordinates{} as lnglat | eval _geo=mvindex(lnglat,1)+","+mvindex(lnglat,0)
+            | search eventtype=actofgod</param>
+            <module name="GoogleMaps">
+                <param name="height">400px</param>
+                <param name="drilldown">true</param>
+                <param name="drilldown_field">_geo</param>
+                <param name="mapStyles">roadmap</param>
+                <param name="mapType">roadmap</param>
+                <param name="mapTypeControl">off</param>
+                <param name="scrollwheel">off</param>
+
+                <module name="HiddenSearch" layoutPanel="panel_row1_col2" group="Natural disaster Tweets" autoRun="False">
+                    <param name="search">index=twitter coordinates.type=Point | rename coordinates.coordinates{} as lnglat | eval _geo=mvindex(lnglat,1)+","+mvindex(lnglat,0)
+                        | search eventtype=actofgod $clientips$</param>
+                    <module name="ConvertToIntention">
+                        <param name="settingToConvert">maps.drilldown</param>
+                        <param name="intention">
+                            <param name="name">stringreplace</param>
+                            <param name="arg">
+                                <param name="clientips">
+                                    <param name="value">$target$</param>
+                                </param>
+                            </param>
+                        </param>
+                        <module name="JobProgressIndicator">
+                        </module>
+                        <module name="HiddenPostProcess">
+                            <param name="search"> table _time text | rename _time as Time, text as Tweet | convert ctime(Time) </param>
+                            <module name="Paginator">
+                                <param name="entityName">results</param>
+                                <param name="count">15</param>
+                            <module name="SimpleResultsTable">
+                                <param name="drilldown">row</param>
+                                <param name="entityName">results</param>
+                                <module name="HiddenSearch">
+                                    <param name="search">index=twitter eventtype=actofgod text="$clientip$"</param>
+                                    <module name="ConvertToIntention">
+                                        <param name="settingToConvert">click.value</param>
+                                        <param name="intention">
+                                            <param name="name">stringreplace</param>
+                                            <param name="arg">
+                                                <param name="clientip">
+                                                    <param name="value">$target$</param>
+                                                </param>
+                                            </param>
+                                        </param>
+                                        <module name="ViewRedirector">
+                                            <param name="viewTarget">flashtimeline</param>
+                                            <param name="popup">true</param>
+                                        </module>
+                                    </module>
+                                </module>
+                                </module>
+                            </module>
+                        </module>
+                        <module name="ViewRedirectorLink">
+                            <param name="label">View events...</param>
+                            <param name="viewTarget">flashtimeline</param>
+                        </module>
+                    </module>
+                </module>
+
+            </module>
+        </module>
+    </module>
+
+    <module name="StaticContentSample" layoutPanel="panel_row2_col1">
+		<param name="text">This Panel shows Tweets that might be related to a plane crash</param>
+	</module>
+
+    <module name="TimeRangePicker" layoutPanel="panel_row2_col1">
+        <param name="default">Last 24 hours</param>
+        <param name="searchWhenChanged">true</param>
+        <module name="HiddenSearch" layoutPanel="panel_row2_col1" autoRun="true" group="Plane crashes">
+            <param name="search">index=twitter coordinates.type=Point | rename coordinates.coordinates{} as lnglat | eval _geo=mvindex(lnglat,1)+","+mvindex(lnglat,0)
+            | search eventtype=planecrash</param>
+            <module name="GoogleMaps">
+                <param name="height">400px</param>
+                <param name="drilldown">true</param>
+                <param name="drilldown_field">_geo</param>
+                <param name="mapStyles">roadmap</param>
+                <param name="mapType">roadmap</param>
+                <param name="mapTypeControl">off</param>
+                <param name="scrollwheel">off</param>
+
+                <module name="HiddenSearch" layoutPanel="panel_row2_col2" group="Plane Crash Tweets" autoRun="False">
+                    <param name="search">index=twitter coordinates.type=Point | rename coordinates.coordinates{} as lnglat | eval _geo=mvindex(lnglat,1)+","+mvindex(lnglat,0)
+                        | search eventtype=planecrash $clientips$</param>
+                    <module name="ConvertToIntention">
+                        <param name="settingToConvert">maps.drilldown</param>
+                        <param name="intention">
+                            <param name="name">stringreplace</param>
+                            <param name="arg">
+                                <param name="clientips">
+                                    <param name="value">$target$</param>
+                                </param>
+                            </param>
+                        </param>
+                        <module name="JobProgressIndicator">
+                        </module>
+                        <module name="HiddenPostProcess">
+                            <param name="search"> table _time text | rename _time as Time, text as Tweet | convert ctime(Time)</param>
+                            <module name="Paginator">
+                                <param name="entityName">results</param>
+                                <param name="count">15</param>
+                            <module name="SimpleResultsTable">
+                                <param name="drilldown">row</param>
+                                <param name="entityName">results</param>
+                                <module name="HiddenSearch">
+                                    <param name="search">index=twitter eventtype=planecrash text="$clientip$"</param>
+                                    <module name="ConvertToIntention">
+                                        <param name="settingToConvert">click.value</param>
+                                        <param name="intention">
+                                            <param name="name">stringreplace</param>
+                                            <param name="arg">
+                                                <param name="clientip">
+                                                    <param name="value">$target$</param>
+                                                </param>
+                                            </param>
+                                        </param>
+                                        <module name="ViewRedirector">
+                                            <param name="viewTarget">flashtimeline</param>
+                                            <param name="popup">true</param>
+                                        </module>
+                                    </module>
+                                </module>
+                                </module>
+                            </module>
+                        </module>
+                        <module name="ViewRedirectorLink">
+                            <param name="label">View events...</param>
+                            <param name="viewTarget">flashtimeline</param>
+                        </module>
+                    </module>
+                </module>
+
+            </module>
+        </module>
+    </module>
+</view>
