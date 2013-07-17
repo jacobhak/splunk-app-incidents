@@ -3,3 +3,6 @@ Requires the Google maps Splunk app.
 
 For stand alone usage you need to provide Twitter credentials.
 See bin/streaming.py for instructions.
+
+Master branch is used for development.
+Demo branch has some UI elements removed, suitable for demos.
