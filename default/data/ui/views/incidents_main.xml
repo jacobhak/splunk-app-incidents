@@ -20,9 +20,8 @@
     <module name="TimeRangePicker" layoutPanel="panel_row1_col1">
         <param name="default">Last 24 hours</param>
         <param name="searchWhenChanged">true</param>
-        <module name="HiddenSearch" layoutPanel="panel_row1_col1" autoRun="true" group="Natural disasters">
-            <param name="search">index=twitter coordinates.type=Point | rename coordinates.coordinates{} as lnglat | eval _geo=mvindex(lnglat,1)+","+mvindex(lnglat,0)
-            | search eventtype=actofgod</param>
+        <module name="HiddenSavedSearch" layoutPanel="panel_row1_col1" autoRun="true" group="Natural disasters">
+            <param name="savedSearch">Actofgod 24h summary</param>
             <module name="GoogleMaps">
                 <param name="height">400px</param>
                 <param name="drilldown">true</param>
@@ -33,8 +32,7 @@
                 <param name="scrollwheel">off</param>
 
                 <module name="HiddenSearch" layoutPanel="panel_row1_col2" group="Natural disaster Tweets" autoRun="False">
-                    <param name="search">index=twitter coordinates.type=Point | rename coordinates.coordinates{} as lnglat | eval _geo=mvindex(lnglat,1)+","+mvindex(lnglat,0)
-                        | search eventtype=actofgod $clientips$</param>
+                    <param name="search">| loadjob savedsearch="nobody:incidents:Actofgod 24h summary" | rename coordinates.coordinates{} as lnglat | eval _geo=mvindex(lnglat,1)+","+mvindex(lnglat,0) | search $clientips$</param>
                     <module name="ConvertToIntention">
                         <param name="settingToConvert">maps.drilldown</param>
                         <param name="intention">
@@ -55,30 +53,8 @@
                             <module name="SimpleResultsTable">
                                 <param name="drilldown">row</param>
                                 <param name="entityName">results</param>
-                                <module name="HiddenSearch">
-                                    <param name="search">index=twitter eventtype=actofgod text="$clientip$"</param>
-                                    <module name="ConvertToIntention">
-                                        <param name="settingToConvert">click.value</param>
-                                        <param name="intention">
-                                            <param name="name">stringreplace</param>
-                                            <param name="arg">
-                                                <param name="clientip">
-                                                    <param name="value">$target$</param>
-                                                </param>
-                                            </param>
-                                        </param>
-                                        <module name="ViewRedirector">
-                                            <param name="viewTarget">flashtimeline</param>
-                                            <param name="popup">true</param>
-                                        </module>
-                                    </module>
-                                </module>
-                                </module>
                             </module>
                         </module>
-                        <module name="ViewRedirectorLink">
-                            <param name="label">View events...</param>
-                            <param name="viewTarget">flashtimeline</param>
                         </module>
                     </module>
                 </module>
@@ -94,9 +70,8 @@
     <module name="TimeRangePicker" layoutPanel="panel_row2_col1">
         <param name="default">Last 24 hours</param>
         <param name="searchWhenChanged">true</param>
-        <module name="HiddenSearch" layoutPanel="panel_row2_col1" autoRun="true" group="Plane crashes">
-            <param name="search">index=twitter coordinates.type=Point | rename coordinates.coordinates{} as lnglat | eval _geo=mvindex(lnglat,1)+","+mvindex(lnglat,0)
-            | search eventtype=planecrash</param>
+        <module name="HiddenSavedSearch" layoutPanel="panel_row2_col1" autoRun="true" group="Plane crashes">
+            <param name="savedSearch">Planecrash 24h summary</param>
             <module name="GoogleMaps">
                 <param name="height">400px</param>
                 <param name="drilldown">true</param>
@@ -107,8 +82,8 @@
                 <param name="scrollwheel">off</param>
 
                 <module name="HiddenSearch" layoutPanel="panel_row2_col2" group="Plane Crash Tweets" autoRun="False">
-                    <param name="search">index=twitter coordinates.type=Point | rename coordinates.coordinates{} as lnglat | eval _geo=mvindex(lnglat,1)+","+mvindex(lnglat,0)
-                        | search eventtype=planecrash $clientips$</param>
+                    <param name="search">| loadjob savedsearch="nobody:incidents:Planecrash 24h summary" | rename coordinates.coordinates{} as lnglat | eval _geo=mvindex(lnglat,1)+","+mvindex(lnglat,0)
+                        | search  $clientips$</param>
                     <module name="ConvertToIntention">
                         <param name="settingToConvert">maps.drilldown</param>
                         <param name="intention">
