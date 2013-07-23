@@ -16,9 +16,6 @@
 		<param name="text">This map shows criminal activity, natural disasters, plane crashes, diseases, 
             bombs and terrorist threats based on Twitter data.</param>
 	</module>
-        <module name="TimeRangePicker" layoutPanel="panel_row1_col1">
-        <param name="default">Last 24 hours</param>
-        <param name="searchWhenChanged">true</param>
     <module name="HiddenSavedSearch" layoutPanel="panel_row1_col1" autoRun="True" group="Incidents">
         <param name="savedSearch">All types summary</param>
         <module name="GoogleMaps">
@@ -33,7 +30,7 @@
             <param name="overlay.gridSize">40</param>
 
         <module name="HiddenSearch" layoutPanel="panel_row1_col2" group="Incidents Tweets" autoRun="False">
-                    <param name="search">|loadjob savedsearch="nobody:incidents:All types summary" | rename coordinates.coordinates{} as lnglat 
+                    <param name="search"> |savedsearch "All types summary" | rename coordinates.coordinates{} as lnglat 
                         | eval _geo=mvindex(lnglat,1)+","+mvindex(lnglat,0)  | search $clientips$</param>
                     <module name="ConvertToIntention">
                         <param name="settingToConvert">maps.drilldown</param>
@@ -61,7 +58,6 @@
                         </module>
             </module>
         </module>
-            </module>
             </module>
             
 </view>
