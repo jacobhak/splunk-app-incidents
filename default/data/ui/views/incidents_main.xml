@@ -31,7 +31,7 @@
 
         <module name="HiddenSearch" layoutPanel="panel_row1_col2" group="Incidents Tweets" autoRun="False">
                     <param name="search"> |savedsearch "All types summary" | rename coordinates.coordinates{} as lnglat 
-                        | eval _geo=mvindex(lnglat,1)+","+mvindex(lnglat,0)  | search $clientips$</param>
+                        | eval _geo=mvindex(lnglat,1)+","+mvindex(lnglat,0)  | search $clientips$ | head 15</param>
                     <module name="ConvertToIntention">
                         <param name="settingToConvert">maps.drilldown</param>
                         <param name="intention">
@@ -46,15 +46,12 @@
                         </module>
                         <module name="HiddenPostProcess">
                             <param name="search"> table _time text | rename _time as Time, text as Tweet | convert ctime(Time) </param>
-                            <module name="Paginator">
-                                <param name="entityName">results</param>
-                                <param name="count">15</param>
                             <module name="SimpleResultsTable">
+			      <param name="count">15</param>
                                 <param name="drilldown">row</param>
                                 <param name="entityName">results</param>
                             </module>
                         </module>
-                            </module>
                         </module>
             </module>
         </module>
