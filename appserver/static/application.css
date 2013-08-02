@@ -1,6 +1,6 @@
 .GoogleMaps .cluster-icon { color: transparent !important; width: 53px; height: 53px; line-height: 53px; z-index: 1; }
-.GoogleMaps .cluster-icon.m-2 { background: transparent url(/static/app/incidents/thunder.png) no-repeat; width: 40px; height: 40px; line-height: 40px; z-index: 2; }
-.GoogleMaps .cluster-icon.m-1 { background: transparent url(/static/app/incidents/thief.png) no-repeat; width: 40px; height: 40px; line-height: 40px; z-index: 1; }
-.GoogleMaps .cluster-icon.m-3 { background: transparent url(/static/app/incidents/disease.png) no-repeat; width: 40px; height: 40px; line-height: 40px; z-index: 3; }
-.GoogleMaps .cluster-icon.m-4 { background: transparent url(/static/app/incidents/plane.png) no-repeat; width: 40px; height: 40px; line-height: 40px; z-index: 4; }
-.GoogleMaps .cluster-icon.m-5 { background: transparent url(/static/app/incidents/bomb.png) no-repeat; width: 40px; height: 40px; line-height: 40px; z-index: 5; }
+.GoogleMaps .cluster-icon.m-1 { background: transparent url(/static/app/incidents/crime_icon.png) no-repeat; width: 40px; height: 40px; line-height: 40px; z-index: 1; }
+.GoogleMaps .cluster-icon.m-2 { background: transparent url(/static/app/incidents/naturaldisaster_icon.png) no-repeat; width: 40px; height: 40px; line-height: 40px; z-index: 2; }
+.GoogleMaps .cluster-icon.m-3 { background: transparent url(/static/app/incidents/medical_icon.png) no-repeat; width: 40px; height: 40px; line-height: 40px; z-index: 3; }
+.GoogleMaps .cluster-icon.m-4 { background: transparent url(/static/app/incidents/plane_icon.png) no-repeat; width: 40px; height: 40px; line-height: 40px; z-index: 4; }
+.GoogleMaps .cluster-icon.m-5 { background: transparent url(/static/app/incidents/terrorism_icon.png) no-repeat; width: 40px; height: 40px; line-height: 40px; z-index: 5; }
